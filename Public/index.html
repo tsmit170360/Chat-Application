@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Chat App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="login-box">
+    <h2>Welcome to ChatApp 💬</h2>
+    <input type="text" id="username" placeholder="Enter your username" required>
+    <input type="password" id="password" placeholder="Enter your password" required>
+    <button id="loginBtn">Login</button>
+  </div>
+
+  <script>
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!username || !password) {
+        alert("Please enter both username and password!");
+        return;
+      }
+
+      // Temporary login (no backend auth yet)
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+      window.location.href = "/chat.html";
+    });
+  </script>
+</body>
+</html>
