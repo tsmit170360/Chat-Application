@@ -6,27 +6,107 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="login-box">
+  <div class="login-box" id="loginBox">
     <h2>Welcome to ChatApp 💬</h2>
-    <input type="text" id="username" placeholder="Enter your username" required>
-    <input type="password" id="password" placeholder="Enter your password" required>
-    <button id="loginBtn">Login</button>
+
+    <!-- LOGIN FORM -->
+    <div id="loginForm">
+      <input type="text" id="loginUsername" placeholder="Enter your username" required>
+      <input type="password" id="loginPassword" placeholder="Enter your password" required>
+      <button id="loginBtn">Login</button>
+      <p style="margin-top: 10px; font-size: 14px;">
+        Don't have an account? <a href="#" id="showRegister">Register</a>
+      </p>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="registerForm" style="display: none;">
+      <input type="text" id="regUsername" placeholder="Choose a username" required>
+      <input type="password" id="regPassword" placeholder="Choose a password" required>
+      <button id="registerBtn">Register</button>
+      <p style="margin-top: 10px; font-size: 14px;">
+        Already have an account? <a href="#" id="showLogin">Login</a>
+      </p>
+    </div>
   </div>
 
   <script>
-    document.getElementById("loginBtn").addEventListener("click", () => {
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value.trim();
+    // Toggle forms
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+    document.getElementById("showRegister").onclick = () => {
+      loginForm.style.display = "none";
+      registerForm.style.display = "block";
+    };
+    document.getElementById("showLogin").onclick = () => {
+      registerForm.style.display = "none";
+      loginForm.style.display = "block";
+    };
+
+    // ===== REGISTER =====
+    document.getElementById("registerBtn").addEventListener("click", async () => {
+      const username = document.getElementById("regUsername").value.trim();
+      const password = document.getElementById("regPassword").value.trim();
 
       if (!username || !password) {
-        alert("Please enter both username and password!");
+        alert("Please enter username and password!");
         return;
       }
 
-      // Temporary login (no backend auth yet)
-      localStorage.setItem("username", username);
-      localStorage.setItem("password", password);
-      window.location.href = "/chat.html";
+      try {
+        const res = await fetch("/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          alert(data.message || "Registration failed!");
+          return;
+        }
+
+        alert("✅ Registration successful! Please login.");
+        document.getElementById("regUsername").value = "";
+        document.getElementById("regPassword").value = "";
+        registerForm.style.display = "none";
+        loginForm.style.display = "block";
+      } catch (err) {
+        console.error(err);
+        alert("Error connecting to server!");
+      }
+    });
+
+    // ===== LOGIN =====
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      const username = document.getElementById("loginUsername").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+
+      if (!username || !password) {
+        alert("Please enter username and password!");
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          alert(data.message || "Login failed!");
+          return;
+        }
+
+        // ✅ Login success
+        localStorage.setItem("username", username);
+        window.location.href = "/chat.html";
+      } catch (err) {
+        console.error(err);
+        alert("Error connecting to server!");
+      }
     });
   </script>
 </body>
