@@ -22,7 +22,7 @@ ChatApp/
 │
 ├── models/
 │   ├── userModel.js          # User schema (username, password, status)
-│   └── messageModel.js       # Message schema (sender, receiver, text, timestamp)
+│   └── messageModel.js       # Message schema (sender, receiver, text)
 │
 ├── routes/
 │   └── api.js                # REST API routes for registration, login, messages
