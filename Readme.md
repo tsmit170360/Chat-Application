@@ -146,26 +146,6 @@ GET http://localhost:5000/api/test
 **Database:** `chat_app`
 
 
-## 🧑‍💻 Author
-
-**Smit Thakkar**  
-📧 t.smit170360@gmail.com  
-💼 Project Type: Educational / Personal  
-
-**Abhikumar Parsaniya**
-📧   
-💼 Project Type: Educational / Personal 
-
-**Abhikumar Parsaniya**
-📧   
-💼 Project Type: Educational / Personal 
-
-**Abhikumar Parsaniya**
-📧   
-💼 Project Type: Educational / Personal 
-
----
-
 ## 💡 Quick Start Summary
 
 ```bash
