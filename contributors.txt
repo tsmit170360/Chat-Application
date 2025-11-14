@@ -1,0 +1,11 @@
+1. UI -interface:
+-Sanskar Agarwal MNS2025006
+
+2. Chat Logic and Mongodb database:
+-Smit Thakkar MNS2025015
+
+3.Server Socket.io
+  -Alekhya china MNS2025020
+
+4. API routes:
+-Abhi Parsaniya MNS2025022
